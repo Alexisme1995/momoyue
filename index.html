@@ -1,0 +1,782 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>圣诞节快乐！</title>
+<script src="javascript/jquery-3.1.1.js" language="javascript"></script>
+<script src="javascript/index.js" language="javascript"></script>
+<script type="text/javascript" src="javascript/snow.js"></script>
+<script type="text/javascript"
+	src="javascript/jquery.SuperSlide.2.1.1.js"></script>
+<script src="jcountdown/jquery.jcountdown.min.js"></script>
+<script src="javascript/jquery.gototop.js"></script>
+<script src="javascript/jquery.hover3d.js" type="text/javascript"></script>
+<script type="text/javascript" src="javascript/strip.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/strip/strip.css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="css/word.css" rel="stylesheet" type="text/css" />
+<link href="css/slide.css" rel="stylesheet" type="text/css" />
+<link href="css/styles.css" rel="stylesheet" type="text/css" />
+<link href="jcountdown/jcountdown.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript">
+		//雪花特效
+		createSnow('', 100);
+		//图片轮播特效
+		$(function() {
+			$(".focus_body").hover(function() {
+				$("#slideLeftBtn,#slideRightBtn").show();
+			}, function() {
+				$("#slideLeftBtn,#slideRightBtn").hide();
+			});
+			$(".focus_body .box .btn").click(
+					function() {
+						$(this).toggleClass("fold").prev().find(
+								".scroll_detail").toggle()
+					});
+			$(".focus_body").slide({
+				mainCell : "#slideContent",
+				targetCell : "#slideContent .title",
+				titCell : "#slideNum",
+				prevCell : "#slideLeftBtn",
+				nextCell : "#slideRightBtn",
+				effect : "left",
+				titOnClassName : "selected",
+				autoPlay : true,
+				delayTime : 600,
+				easing : "easeInOutCirc",
+				autoPage : "<span></span>"
+			})
+		})
+		//返回顶部插件
+		$(function() {
+			// $(".gototop").gototop();
+			$(".gototop").gototop({
+				position : 0,
+				duration : 1250,
+				visibleAt : 300,
+				classname : "isvisible"
+			});
+		});
+		//倒计时插件
+		$(function() {
+			var b = new Date;
+			var b = -b.getTimezoneOffset() / 60;
+			var i = '2017/12/25 00:00:00';
+			var config = {
+				timeText : i, //倒计时时间
+				timeZone : b, //时区
+				style : "metal", //显示的样式，可选值有flip,slide,metal,crystal
+				color : "white", //显示的颜色，可选值white,black
+				width : 0, //倒计时宽度
+				textGroupSpace : 8, //天、时、分、秒之间间距
+				textSpace : 0, //数字之间间距
+				reflection : !0, //是否显示倒影
+				reflectionOpacity : 10, //倒影透明度
+				reflectionBlur : 0, //倒影模糊程度
+				dayTextNumber : 2, //倒计时天数数字个数
+				displayDay : !0, //是否显示天数
+				displayHour : !0, //是否显示小时数
+				displayMinute : !0, //是否显示分钟数
+				displaySecond : !0, //是否显示秒数
+				displayLabel : !0, //是否显示倒计时底部label
+				onFinish : function() {
+				}
+			};
+			$(".countdown").jCountdown(config);
+		});
+		//右侧导航条方法
+		$(function() {
+			var AllHet = $(window).height();
+			var mainHet = $('.floatCtro').height();
+			var fixedTop = (AllHet - mainHet) / 2
+			$('div.floatCtro').css({
+				top : fixedTop + 'px'
+			});
+			$('div.floatCtro p').click(function() {
+				var ind = $('div.floatCtro p').index(this) + 1;
+				var topVal = $('#float0' + ind).offset().top;
+				$('body,html').animate({
+					scrollTop : topVal
+				}, 1000)
+			})
+			$('div.floatCtro a').click(function() {
+				$('body,html').animate({
+					scrollTop : 0
+				}, 1000)
+			})
+			$(window).scroll(scrolls)
+			scrolls()
+			function scrolls() {
+				var f1, f2, f3, f4, f5, bck;
+				var fixRight = $('div.floatCtro p');
+				var blackTop = $('div.floatCtro a')
+				var sTop = $(window).scrollTop();
+				fl = $('#float01').offset().top;
+				f2 = $('#float02').offset().top;
+				f3 = $('#float03').offset().top - 300;
+				f4 = $('#float04').offset().top;
+				f5 = $('#float05').offset().top;
+				var topPx = sTop + fixedTop
+				$('div.floatCtro').stop().animate({
+					top : topPx
+				});
+
+				if (sTop <= f2 - 100) {
+					blackTop.fadeOut(300).css('display', 'none')
+				} else {
+					blackTop.fadeIn(300).css('display', 'block')
+				}
+
+				if (sTop >= fl) {
+					fixRight.eq(0).addClass('cur').siblings()
+							.removeClass('cur');
+				}
+				if (sTop >= f2 - 100) {
+					fixRight.eq(1).addClass('cur').siblings()
+							.removeClass('cur');
+				}
+				if (sTop >= f3 - 100) {
+					fixRight.eq(2).addClass('cur').siblings()
+							.removeClass('cur');
+				}
+				if (sTop >= f4 - 100) {
+					fixRight.eq(3).addClass('cur').siblings()
+							.removeClass('cur');
+				}
+				if (sTop >= f5 - 100) {
+					fixRight.eq(4).addClass('cur').siblings()
+							.removeClass('cur');
+				}
+			}
+		})
+		//3d图片方法
+		$(document).ready(function() {
+			$(".project").hover3d({
+				selector : ".project__card",
+				shine : true,
+			});
+
+			$(".movie").hover3d({
+				selector : ".movie__card",
+				shine : true,
+				sensitivity : 20,
+			});
+		});
+	</script>
+</head>
+
+<body
+	style="background-image: url(image/backimg.jpg); background-attachment: fixed;">
+	<!--背景音乐播放器开始-->
+	<audio id="audio" autoplay="autoplay"> <source
+		src="music/Merry Christmas.mp3" type="audio/mpeg" codecs="mp3"></source>
+	</audio>
+	<!--背景音乐播放器结束-->
+	<!--圣诞节倒计时层开始-->
+	<div style="text-align: center">
+		<font style="font-size: 26px;">距离圣诞节还有：</font>
+		<div class="countdown" style="margin-top: 20px;"></div>
+	</div>
+	<!--圣诞节倒计时层结束-->
+	<!--网站主体开始-->
+	<!--顶部欢迎LOGO开始-->
+	<div class="logoDiv">
+		<img src="image/word.png" width="650" height="321" />
+	</div>
+	<!--顶部欢迎LOGO结束-->
+
+	<!-- 网站主要代码从这开始 -->
+	<div class="mainDiv" style="position: relative">
+		<!--节日介绍篇开始-->
+		<!--排树div开始-->
+		<div class="treeDiv"></div>
+		<!--排树div结束-->
+
+		<!--透明容器背景独立开始-->
+		<div class="BgDiv"></div>
+		<!--透明容器背景独立结束-->
+
+		<!--透明背景框内内容开始-->
+		<div style="width: 100%; position: absolute; top: 48px;" id="float01">
+			<!--雪地悬挂物开始-->
+			<div class="hangDiv"></div>
+			<!--雪地悬挂物结束-->
+			<div
+				style="width: 700px; margin-left: auto; margin-right: auto; margin-top: 40px">
+				<div style="float: left;">
+					<img src="image/mcicon1.png" width="100" height="100" />
+				</div>
+				<div style="float: left">
+					<img src="image/festivalI.png" width="500" height="100" />
+				</div>
+				<div style="float: left;">
+					<img src="image/mcicon1.png" width="100" height="100" />
+
+
+				</div>
+				<div style="clear: left"></div>
+			</div>
+			<!--圣诞节来历文本说明开始-->
+			<div
+				style="width: 1000px; margin-left: auto; margin-right: auto; border-bottom: #666 1px dashed; margin-top: 20px"></div>
+			<div style="width: 1000px; text-align: center; margin: 0 auto;">
+				<img src="image/MCOME.png" width="300" height="60" />
+			</div>
+			<div
+				style="width: 1000px; margin-left: auto; margin-right: auto; border-bottom: #666 1px dashed"></div>
+			<div
+				style="width: 1000px; text-align: center; margin: 0 auto; margin-top: 20px">
+				<font class="bigWhiteWord">圣诞节是基督教世界最大的节日</font><br /> <font
+					class="bigWhiteWord">每年12月25日是全世界大多数基督徒纪念耶稣诞生的日子。</font><br /> <font
+					class="bigWhiteWord">教会开始并无圣诞节，约在耶稣升天后百余年内才有。</font><br /> <font
+					class="bigWhiteWord">12月25日原来是波斯太阳神（即光明之神）密特拉的诞辰</font><br /> <font
+					class="bigWhiteWord">原来1月6日的主显节就只纪念耶稣受洗了</font><br /> <font
+					class="bigWhiteWord">但天主教会又把12月25日定为“三王来朝节”</font><br /> <font
+					class="bigWhiteWord">以纪念耶稣生时东方三王（即三位博士）来朝拜的故事</font><br /> <br />
+				<font class="bigWhiteWord">在欧美许多国家里</font><br /> <font
+					class="bigWhiteWord">人们非常重视这个节日，把它和新年连在一起</font><br /> <font
+					class="bigWhiteWord">而庆祝活动之热闹与隆重大大超过了新年</font><br /> <font
+					class="bigWhiteWord">成为一个全民的节日.</font><br />
+			</div>
+			<!--圣诞节来历文本说明结束-->
+			<!--图片轮播区开始-->
+			<div
+				style="width: 1000px; margin-left: auto; margin-right: auto; border-bottom: #666 1px dashed; margin-top: 20px"></div>
+			<div style="width: 1000px; text-align: center; margin: 0 auto;">
+				<img src="image/shortIMG.png" width="300" height="60" />
+			</div>
+			<div
+				style="width: 1000px; margin-left: auto; margin-right: auto; border-bottom: #666 1px dashed"></div>
+			<div class="focus_body" style="margin-top: 20px">
+				<div class="bd_bg"></div>
+				<div class="bd_bg2"></div>
+				<div class="scroll">
+					<a id="slideLeftBtn" class="arr_left" title="点击查看上一张图">左移动</a> <a
+						id="slideRightBtn" class="arr_right" title="点击查看下一张图">右移动</a>
+					<div class="scroll_cont" id="slideContent">
+						<div class="box">
+							<a href="#"> <img src="image/1.jpg" alt="">
+									<div class="scroll_detail">
+										<span class="bg"></span> <span class="sum">Francois
+											圣诞树（Christmas
+											tree）是圣诞节庆祝中最有名的传统之一。通常人们在圣诞前后把一棵常绿植物如松树弄进屋里或者在户外，并用圣诞灯和彩色的装饰物装饰。并把一个天使或星星放在树的顶上。</span>
+									</div></a> <a class="btn" href="javascript:;"></a> <span class="title">圣诞节为什么要种圣诞树？</span>
+						</div>
+						<div class="box">
+							<a href="#"> <img src="image/6.jpg" alt="">
+									<div class="scroll_detail">
+										<span class="bg"></span> <span class="sum">圣诞老人（Santa
+											Claus）又有人称他为圣·尼古拉斯，是一位专门为好孩子在圣诞节前夜送上礼物的神秘人物。传说每到12月24日晚上，有个神秘人会驾乘由9只驯鹿拉的雪橇，挨家挨户地从烟囱进入屋里，然后偷偷把礼物放在好孩子床头的袜子里，或者堆在壁炉旁的圣诞树下</span>
+									</div></a> <a class="btn" href="javascript:;"></a> <span class="title">神秘的圣诞老人</span>
+						</div>
+
+						<div class="box">
+							<a href="#"> <img src="image/2.jpg" alt="">
+									<div class="scroll_detail">
+										<span class="bg"></span> <span class="sum">圣诞节（Christmas）又称耶诞节，译名为“基督弥撒”，西方传统节日，在每年12月25日。弥撒是教会的一种礼拜仪式。圣诞节是一个宗教节，因为把它当作耶稣的诞辰来庆祝，故名“耶诞节”。</span>
+									</div></a> <a class="btn" href="javascript:;"></a> <span class="title">圣诞节来历</span>
+						</div>
+
+						<div class="box">
+							<a href="#"> <img src="image/3.jpg" alt="">
+									<div class="scroll_detail">
+										<span class="bg"></span> <span class="sum">改革开放后，圣诞节在中国传播地尤为突出，至二十一世纪初，圣诞节有机地结合了中国当地习俗，发展日趋成熟。吃苹果、带圣诞帽、寄送圣诞贺卡，参加圣诞派对，圣诞购物等成了中国人生活的一部分。</span>
+									</div></a> <a class="btn" href="javascript:;"></a> <span class="title">过圣诞节必须要做的事情</span>
+						</div>
+
+						<div class="box">
+							<a href="#"> <img src="image/4.jpg" alt="">
+									<div class="scroll_detail">
+										<span class="bg"></span> <span class="sum">西方国家圣诞节其间挂在家门口用的装饰品，通常用绿色的枝叶或藤条（松毛、松针等）和银色的金属及金色的铃铛配以红色的缎带组成主色调绿、白、黄、红代表欢乐喜庆</span>
+									</div></a> <a class="btn" href="javascript:;"></a> <span class="title">圣诞节为什么要吃糖果</span>
+						</div>
+
+						<div class="box">
+							<a href="#"> <img src="image/5.jpg" alt="">
+									<div class="scroll_detail">
+										<span class="bg"></span> <span class="sum">对于没有基督文化背景的中国人来说，只是提供了购物或是又一个出国游玩的时间点罢了。中国国内众多城市都有了圣诞狂欢，商场、超市等在圣诞前后都有大型促销活动。也催生出了一个现象：“浙江义乌，号称世界圣诞饰品之都。”全球70%的圣诞饰品都来自这里</span>
+									</div></a> <a class="btn" href="javascript:;"></a> <span class="title">中国人是怎么过圣诞节的？</span>
+						</div>
+					</div>
+				</div>
+				<div id="slideNum" class="numList"></div>
+			</div>
+			<!--图片轮播区结束-->
+		</div>
+		<!--透明背景框内内容结束-->
+		<!--节日介绍篇结束-->
+
+
+
+
+		<!--节日习俗篇开始-->
+		<!--排树div开始-->
+		<div class="treeDiv" style="margin-top: 50px"></div>
+		<!--排树div结束-->
+		<!--透明容器背景独立开始-->
+		<div class="BgDiv"></div>
+		<!--透明容器背景独立结束-->
+		<!--透明背景框内内容开始-->
+		<div style="width: 100%; position: absolute; top: 1450px;"
+			id="float02">
+			<!--雪地悬挂物开始-->
+			<div class="hangDiv" style="margin-top: 94px"></div>
+			<!--雪地悬挂物结束-->
+			<div
+				style="width: 700px; margin-left: auto; margin-right: auto; margin-top: 40px">
+				<div style="float: left;">
+					<img src="image/mcicon.png" width="100" height="100" />
+				</div>
+				<div style="float: left">
+					<img src="image/f2.png" width="500" height="100" />
+				</div>
+				<div style="float: left;">
+					<img src="image/mcicon.png" width="100" height="100" />
+				</div>
+				<div style="clear: left"></div>
+			</div>
+			<!--圣诞老人的传说开始-->
+			<div
+				style="width: 1000px; margin-left: auto; margin-right: auto; border-bottom: #666 1px dashed; margin-top: 20px"></div>
+			<div style="width: 1000px; text-align: center; margin: 0 auto;">
+				<img src="image/sd1.png" width="300" height="60" />
+			</div>
+			<div
+				style="width: 1000px; margin-left: auto; margin-right: auto; border-bottom: #666 1px dashed"></div>
+			<div
+				style="width: 1000px; text-align: center; margin: 0 auto; margin-top: 20px">
+				<font class="bigWhiteWord">一位专门为好孩子在圣诞节前夜送上礼物的神秘人物。</font><br /> <font
+					class="bigWhiteWord">传说每到12月24日晚上</font><br /> <font
+					class="bigWhiteWord">有个神秘人会驾乘由12只驯鹿拉的雪橇</font><br /> <font
+					class="bigWhiteWord">挨家挨户地从烟囱进入屋里</font><br /> <font
+					class="bigWhiteWord">然后偷偷把礼物放在好孩子床头的袜子里</font><br /> <font
+					class="bigWhiteWord">或者堆在壁炉旁的圣诞树下</font><br /> <br /> <font
+					class="bigWhiteWord">虽然没有人真的见过神秘人的样子</font><br /> <font
+					class="bigWhiteWord">但是人们通常装扮成头戴红色圣诞帽子</font><br /> <font
+					class="bigWhiteWord">大大的白色胡子，一身红色棉衣，脚穿红色靴子的样子</font><br /> <font
+					class="bigWhiteWord">因为总在圣诞节前夜出现派发礼物，所以习惯地称他为"圣诞老人"。</font><br />
+				<font class="bigWhiteWord">圣诞老人源于欧洲的民间传说。</font><br />
+			</div>
+			<!--圣诞老人的传说结束-->
+
+			<!--各国的习俗开始-->
+			<div
+				style="width: 1000px; margin-left: auto; margin-right: auto; border-bottom: #666 1px dashed; margin-top: 20px"></div>
+			<div style="width: 1000px; text-align: center; margin: 0 auto;">
+				<img src="image/x1.png" width="300" height="60" />
+			</div>
+			<div
+				style="width: 1000px; margin-left: auto; margin-right: auto; border-bottom: #666 1px dashed"></div>
+			<div
+				style="width: 1000px; text-align: center; margin: 0 auto; margin-top: 20px">
+				<ul id="ul1">
+					<li>
+						<h1>中国</h1>
+						<p>中国圣诞节,是一种娱乐表达。就如同2月14日“情人节”,也如同11月11日“光棍节”,更如同2013年1月4日这个“一生一世节”,圣诞节，或许只是国人娱乐一把的一个载体或是借口。</p>
+					</li>
+					<li>
+						<h1>英国</h1>
+						<p>他们认为圣诞节必须吃得痛快。所以圣诞大餐极为丰富，包括猪肉、烤火鸡、圣诞布丁、圣诞碎肉饼......等等。家里每一个人都有一份礼物连仆人也有，礼物都在圣诞节的早晨分赠。</p>
+					</li>
+					<li>
+						<h1>法国</h1>
+						<p>在圣诞节前夕都要到教堂参加午夜弥撒。弥撒后家人同往年长兄姐家中团聚共享圣诞餐，并分享一年来家中要事。偶有家人不和之事，亦常因圣诞欢聚而尽释前嫌，言归于好。</p>
+					</li>
+					<li>
+						<h1>西班牙</h1>
+						<p>该国的孩童常将鞋子放在窗口或门外，以接受圣诞礼物。在许多城市中，男孩子也常备有许多高级礼物，要送给美丽女子</p>
+					</li>
+					<li>
+						<h1>美国</h1>
+						<p>一个自由且多彩的国家，圣诞节是他们快乐狂欢的日子。美国的民族复杂，所以其庆祝方式常因移民的不同而有所差异。大部分室内都有别致的布置，门外悬挂着美艳的花环及绮丽的饰物</p>
+					</li>
+					<li>
+						<h1>日本</h1>
+						<p>虽然日本非基督教国家，但战后日本过圣诞节的风气十分风靡。原因之一与各大商家的促销有关。有的百货公司以圣诞树作装潢，在店内布置雪景，增加银色圣诞的气氛。</p>
+					</li>
+				</ul>
+				<ul id="ul1">
+				</ul>
+			</div>
+			<!--各国的习俗结束-->
+		</div>
+		<!--透明背景框内内容结束-->
+		<!--节日习俗篇结束-->
+
+
+		<!--我们的圣诞节篇开始-->
+		<!--排树div开始-->
+		<div class="treeDiv" style="margin-top: 50px"></div>
+		<!--排树div结束-->
+		<!--透明容器背景独立开始-->
+		<div class="BgDiv" style="height: 1700px"></div>
+		<!--透明容器背景独立结束-->
+		<!--透明背景框内内容开始-->
+		<div style="width: 100%; position: absolute; top: 3550px;">
+			<!--雪地悬挂物开始-->
+			<div class="hangDiv" style="margin-top: -510px"></div>
+			<!--雪地悬挂物结束-->
+			<div
+				style="width: 700px; margin-left: auto; margin-right: auto; margin-top: 40px">
+				<div style="float: left;">
+					<img src="image/r1.gif" width="120" height="120" />
+				</div>
+				<div style="float: left" id="float03">
+					<img src="image/w3.png" width="450" height="90" />
+				</div>
+				<div style="float: left;">
+					<img src="image/r1.gif" width="120" height="120" />
+				</div>
+				<div style="clear: left"></div>
+			</div>
+			<!--中式圣诞节开始-->
+			<div
+				style="width: 1000px; margin-left: auto; margin-right: auto; border-bottom: #666 1px dashed; margin-top: 20px"></div>
+			<div style="width: 1000px; text-align: center; margin: 0 auto;">
+				<img src="image/z1.png" width="300" height="60" />
+			</div>
+			<div
+				style="width: 1000px; margin-left: auto; margin-right: auto; border-bottom: #666 1px dashed"></div>
+			<div
+				style="width: 1000px; text-align: center; margin: 0 auto; margin-top: 20px">
+				<font class="bigWhiteWord">中国的圣诞节，又名“虐狗节”</font><br /> <font
+					class="bigWhiteWord">单身人士一般笑称自己为“单身狗”</font><br /> <font
+					class="bigWhiteWord">圣诞节也是“第二个情人节”</font><br /> <font
+					class="bigWhiteWord">所以高校里的学子们最为热衷于此</font><br /> <font
+					class="bigWhiteWord">尤其是那些热恋之中的情侣</font><br /> <font
+					class="bigWhiteWord">都会选择在平安夜里聚众狂欢</font><br /> <font
+					class="bigWhiteWord">同样因为没有假期</font><br /> <font
+					class="bigWhiteWord">圣诞节完全没有阖家团聚的意义</font><br /> <font
+					class="bigWhiteWord">圣诞节也就止于圣诞夜</font><br /> <br /> <font
+					class="bigWhiteWord">我国喜欢圣诞的年轻人的理由是“因为浪漫”</font><br /> <font
+					class="bigWhiteWord">“是一个快乐的借口”等等</font><br /> <font
+					class="bigWhiteWord">其实他们喜欢的是的圣诞节特有的一种情调。</font><br />
+			</div>
+			<!--中式圣诞节结束-->
+			<!--中式圣诞节图片鉴赏开始-->
+			<!--标题层开始-->
+			<div
+				style="width: 1000px; margin-left: auto; margin-right: auto; border-bottom: #666 1px dashed; margin-top: 40px"></div>
+			<div style="width: 1000px; text-align: center; margin: 0 auto;">
+				<img src="image/w4.png" width="300" height="60" />
+			</div>
+			<div
+				style="width: 1000px; margin-left: auto; margin-right: auto; border-bottom: #666 1px dashed"></div>
+			<!--标题层结束-->
+			<!--图片展示层开始-->
+			<div
+				style="width: 1000px; margin-left: auto; margin-right: auto; margin-top: 20px;">
+
+				<div class="project-list" style="margin-left: 5%">
+					<div class="project">
+						<div class="project__card">
+							<a href="" class="project__image"><img src="image/p1.jpg"
+								width=600 height=400 alt="" style="border-radius: 0.3em;"></a>
+							<div class="project__detail">
+								<h2 class="project__title">
+									<font class="bigWhiteWord">益阳秀峰公园圣诞求婚</font>
+								</h2>
+							</div>
+						</div>
+					</div>
+
+					<div class="project">
+						<div class="project__card">
+							<a href="" class="project__image"><img src="image/p2.jpg"
+								width=600 height=400 alt="" style="border-radius: 0.3em;"></a>
+							<div class="project__detail">
+								<h2 class="project__title">
+									<font class="bigWhiteWord">梓山湖圣诞表白行动</font>
+								</h2>
+							</div>
+						</div>
+					</div>
+
+					<div class="project">
+						<div class="project__card">
+							<a href="" class="project__image"><img src="image/p3.jpg"
+								width=600 height=400 alt="" style="border-radius: 0.3em;"></a>
+							<div class="project__detail">
+								<h2 class="project__title">
+									<font class="bigWhiteWord">圣诞精心准备表白</font>
+								</h2>
+							</div>
+						</div>
+					</div>
+
+					<div class="project">
+						<div class="project__card">
+							<a href="" class="project__image"><img src="image/p4.jpg"
+								width=600 height=400 alt="" style="border-radius: 0.3em;"></a>
+							<div class="project__detail">
+								<h2 class="project__title">
+									<font class="bigWhiteWord">圣诞Party</font>
+								</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--图片展示层结束-->
+			<!--中式圣诞节图片鉴赏结束-->
+			<!--中式圣诞节结束-->
+		</div>
+		<!--透明背景框内内容结束-->
+		<!--我们的圣诞节篇结束-->
+
+
+
+		<!--圣诞食物篇开始-->
+		<!--排树div开始-->
+		<div class="treeDiv" style="margin-top: 50px"></div>
+		<!--排树div结束-->
+		<!--透明容器背景独立开始-->
+		<div class="BgDiv" style="height: 1700px" id="float04"></div>
+		<!--透明容器背景独立结束-->
+		<!--透明背景框内内容开始-->
+		<div style="width: 100%; position: absolute; top: 5348px;">
+			<!--雪地悬挂物开始-->
+			<div class="hangDiv" style="margin-top: -510px"></div>
+			<!--雪地悬挂物结束-->
+			<div
+				style="width: 700px; margin-left: auto; margin-right: auto; margin-top: 40px">
+				<div style="float: left;">
+					<img src="image/s1.gif" width="120" height="120" />
+				</div>
+				<div style="float: left; margin-top: 10px" id="float04">
+					<img src="image/f1.png" width="450" height="90" />
+				</div>
+				<div style="float: left;">
+					<img src="image/s1.gif" width="120" height="120" />
+				</div>
+				<div style="clear: left"></div>
+			</div>
+			<!--食物简介开始-->
+			<div
+				style="width: 1000px; margin-left: auto; margin-right: auto; border-bottom: #666 1px dashed; margin-top: 20px"></div>
+			<div style="width: 1000px; text-align: center; margin: 0 auto;">
+				<img src="image/w2.png" width="300" height="60" />
+			</div>
+			<div
+				style="width: 1000px; margin-left: auto; margin-right: auto; border-bottom: #666 1px dashed"></div>
+			<div
+				style="width: 1000px; text-align: center; margin: 0 auto; margin-top: 20px">
+				<font class="bigWhiteWord">圣诞大餐正像国人过春节吃年夜饭一样</font><br /> <font
+					class="bigWhiteWord">欧美人过圣诞节也很注重全家团聚</font><br /> <font
+					class="bigWhiteWord">围坐在圣诞树下，共进节日美餐</font><br /> <font
+					class="bigWhiteWord">全家老小约上亲友成群结队地到餐馆去吃一顿圣诞大餐</font><br /> <font
+					class="bigWhiteWord">其中，火鸡、腊鸡、烧牛仔肉和猪腿必不可少</font><br />
+				<br /> <font class="bigWhiteWord">传统的圣诞大餐，在最早的时候流行吃烤猪、火腿</font><br />
+				<font class="bigWhiteWord">后来是火鸡、三文鱼,总之是以肉为主</font><br /> <font
+					class="bigWhiteWord">除了吃肉，圣诞大餐还得有红酒</font><br />
+			</div>
+			<!--食物简介结束-->
+			<!--食物展示区开始-->
+			<div
+				style="width: 1000px; margin-left: auto; margin-right: auto; border-bottom: #666 1px dashed; margin-top: 40px"></div>
+			<div style="width: 1000px; text-align: center; margin: 0 auto;">
+				<img src="image/x3.png" width="350" height="70" />
+			</div>
+			<div
+				style="width: 1000px; margin-left: auto; margin-right: auto; border-bottom: #666 1px dashed"></div>
+			<div
+				style="width: 1000px; text-align: center; margin: 0 auto; margin-top: 20px">
+				<ul id="ul1">
+					<li style="opacity: 1"><font class="bigBlack">圣诞节火鸡</font> <a
+						href="image/l1.jpg" class="strip" data-strip-caption="圣诞节火鸡"
+						data-strip-group="food" data-strip-options="side:'bottom'"> <img
+							src="image/l1.jpg" width="200" height="133" />
+					</a></li>
+					<li style="opacity: 1"><font class="bigBlack">耶诞曲奇</font> <a
+						href="image/f4.jpg" class="strip" data-strip-caption="耶诞曲奇"
+						data-strip-group="food" data-strip-options="side:'bottom'"> <img
+							src="image/f4.jpg" width="200" height="133" />
+					</a></li>
+					<li style="opacity: 1"><font class="bigBlack">圣诞海鲜</font> <a
+						href="image/f5.jpg" class="strip" data-strip-caption="圣诞海鲜"
+						data-strip-group="food" data-strip-options="side:'bottom'"> <img
+							src="image/f5.jpg" width="200" height="133" />
+					</a></li>
+					<li style="opacity: 1"><font class="bigBlack">草莓派</font> <a
+						href="image/f7.jpg" class="strip" data-strip-caption="草莓派"
+						data-strip-group="food" data-strip-options="side:'bottom'"> <img
+							src="image/f7.jpg" width="200" height="133" />
+					</a></li>
+					<li style="opacity: 1"><font class="bigBlack">黑椒牛排</font> <a
+						href="image/f8.jpg" class="strip" data-strip-caption="黑椒牛排"
+						data-strip-group="food" data-strip-options="side:'bottom'"> <img
+							src="image/f8.jpg" width="200" height="133" />
+					</a></li>
+					<li style="opacity: 1"><font class="bigBlack">圣诞主题甜甜圈</font> <a
+						href="image/f6.jpg" class="strip" data-strip-caption="圣诞主题甜甜圈"
+						data-strip-group="food" data-strip-options="side:'bottom'"> <img
+							src="image/f6.jpg" width="200" height="133" />
+					</a></li>
+					<li style="opacity: 1"><font class="bigBlack">水果沙拉</font> <a
+						href="image/f9.jpg" class="strip" data-strip-caption="水果沙拉"
+						data-strip-group="food" data-strip-options="side:'bottom'"> <img
+							src="image/f9.jpg" width="200" height="133" />
+					</a></li>
+					<li style="opacity: 1"><font class="bigBlack">圣诞布丁</font> <a
+						href="image/f10.jpg" class="strip" data-strip-caption="圣诞布丁"
+						data-strip-group="food" data-strip-options="side:'bottom'"> <img
+							src="image/f10.jpg" width="200" height="133" />
+					</a></li>
+					<li style="opacity: 1"><font class="bigBlack">意大利面</font> <a
+						href="image/f11.jpg" class="strip" data-strip-caption="意大利面"
+						data-strip-group="food" data-strip-options="side:'bottom'"> <img
+							src="image/f11.jpg" width="200" height="133" />
+					</a></li>
+				</ul>
+				<ul id="ul1">
+				</ul>
+			</div>
+			<!--食物展示区结束-->
+		</div>
+		<!--圣诞食物篇结束-->
+
+		<!--作者祝福篇开始-->
+		<!--排树div开始-->
+		<div class="treeDiv" style="margin-top: 50px"></div>
+		<!--排树div结束-->
+		<!--透明容器背景独立开始-->
+		<div class="BgDiv" style="height: 700px" id="float05"></div>
+		<!--透明容器背景独立结束-->
+		<!--透明背景框内内容开始-->
+		<div style="width: 100%; position: absolute; top: 7145px;">
+			<!--雪地悬挂物开始-->
+			<div class="hangDiv" style="margin-top: -510px"></div>
+			<!--雪地悬挂物结束-->
+			<div
+				style="width: 700px; margin-left: auto; margin-right: auto; margin-top: 40px">
+				<div style="float: left;">
+					<img src="image/LR2.gif" width="120" height="125" />
+				</div>
+				<div style="float: left; margin-top: 20px" id="float04">
+					<img src="image/zhufu.png" width="450" height="90" />
+				</div>
+				<div style="float: left;">
+					<img src="image/LR1.gif" width="120" height="125" />
+				</div>
+				<div style="clear: left"></div>
+			</div>
+			<div
+				style="width: 1000px; text-align: center; margin: 0 auto; margin-top: 20px">
+				<font class="bigWhiteWord">越来越临近圣诞节了</font><br /> <font
+					class="bigWhiteWord">作为此网站作者的我，当然要在这里</font><br /> <font
+					class="bigWhiteWord">祝福大家一句：圣诞快乐啦！</font><br /> <font
+					class="bigWhiteWord">祝我们致礼信息科技有限公司的所有人：</font><br /> <font
+					class="bigWhiteWord">圣诞快乐！Merry Christmas!!</font><br /> <font
+					class="bigWhiteWord">没有男\女盆友的祝你们早日找到他\她</font><br /> <font
+					class="bigWhiteWord">有男女朋友的..咳咳</font><br /> <font
+					class="bigWhiteWord">在节日那天少虐那些单身狗们吧..</font><br />
+				<br /> <font class="bigWhiteWord">最后，还是祝事业有成</font> <br /> <font
+					class="bigWhiteWord">工作称心称意，爱情甜甜蜜蜜</font><br /> <font
+					class="bigWhiteWord">永远做一个快乐的人，嘿嘿</font><br /> <font
+					class="bigWhiteWord">作者：</font> <font class="bigWhiteWord"
+					style="color: #F00">Alex 李嘉伟 留</font><br /> <font
+					class="bigWhiteWord">2016.12.24日</font>
+			</div>
+		</div>
+		<!--作者祝福篇结束-->
+
+
+		<!--引用饰物矢量图绝对层开始-->
+		<!--圣诞老人像开始-->
+		<div style="position: absolute; top: 1900px; left: 5%">
+			<img src="image/sd3.gif" width="260" height="230" />
+		</div>
+		<div style="position: absolute; top: 1900px; right: 5%">
+			<img src="image/sd2.gif" width="260" height="230" />
+		</div>
+		<!--圣诞老人像结束-->
+		<!--圣诞树开始-->
+		<div style="position: absolute; top: 2300px; left: 1%">
+			<img src="image/t1.gif" width="220" height="220" />
+		</div>
+		<div style="position: absolute; top: 2600px; right: 0.5%">
+			<img src="image/t1.gif" width="220" height="220" />
+		</div>
+		<!--圣诞树结束-->
+		<!--圣诞老人麋鹿开始-->
+		<div style="position: absolute; top: 350px; left: -46px;">
+			<img src="image/s3.gif" width="200" height="257" />
+		</div>
+		<div style="position: absolute; top: 450px; right: -22px">
+			<img src="image/s4.gif" width="200" height="257" />
+		</div>
+		<!--圣诞老人麋鹿结束-->
+		<!--单身狗图层开始-->
+		<div style="position: absolute; top: 3500px; left: 5%;">
+			<img src="image/dog.gif" width="200" height="221" />
+		</div>
+		<div style="position: absolute; top: 3500px; right: 5%">
+			<img src="image/dog2.gif" width="196" height="250" />
+		</div>
+		<!--单身狗图层结束-->
+		<!--圣诞糖果层开始-->
+		<div style="position: absolute; top: 4050px; left: 2%;">
+			<img src="image/c1.gif" width="100" height="189" />
+		</div>
+		<div style="position: absolute; top: 4300px; right: 2%">
+			<img src="image/c4.gif" width="100" height="189" />
+		</div>
+		<!--圣诞糖果层结束-->
+		<!--圣诞食物层开始-->
+		<div style="position: absolute; top: 5250px; left: 2%;">
+			<img src="image/c5.gif" width="300" height="137" />
+		</div>
+		<div style="position: absolute; top: 5200px; right: 5%">
+			<img src="image/w6.gif" width="130" height="250" />
+		</div>
+		<!--圣诞食物层结束-->
+		<!--圣诞食物层2开始-->
+		<div style="position: absolute; top: 6000px; left: 1%;">
+			<img src="image/f123.gif" width="220" height="175" />
+		</div>
+		<div style="position: absolute; top: 5800px; right: 0px">
+			<img src="image/f233.gif" width="200" height="159" />
+		</div>
+		<!--圣诞食物层2结束-->
+		<!--告别层饰物开始-->
+		<div style="position: absolute; top: 6900px; left: 1%;">
+			<img src="image/sd123.gif" width="220" height="363" />
+		</div>
+		<div style="position: absolute; top: 6900px; right: 1%">
+			<img src="image/ml1.gif" width="220" height="363" />
+		</div>
+		<!--告别层饰物结束-->
+		<!--引用饰物矢量图绝对层结束-->
+	</div>
+	<!-- 网站主要代码从这结束 -->
+
+	<!--右侧导航区开始-->
+	<div class="floatCtro">
+		<p>介绍篇</p>
+		<p>习俗篇</p>
+		<p>中国篇</p>
+		<p>食物篇</p>
+		<p>祝福篇</p>
+	</div>
+	<button class="gototop">
+		<span>返回顶部</span>
+	</button>
+	<!--右侧导航区结束-->
+
+
+	<!--底部版权区开始-->
+	<div class="bottomDiv">
+		<div
+			style="width: 50%; margin-left: auto; margin-right: auto; padding-top: 25px; text-align: center">
+			<font class="HoverWhiteWord">版权所有，@AlexIsMe 李嘉伟</font><br /> <font
+				class="HoverWhiteWord">若有雷同，纯属意外</font><br /> <font
+				class="HoverWhiteWord">Tel:15273777116 | QQ：244839532 |
+				Email：alexisme1995@outlook.com</font><br /> <font class="HoverWhiteWord">本网站所有素材均为作者自己制作或网络开源素材网所得</font><br />
+			<font class="HoverWhiteWord">本网站由@AlexIsMe李嘉伟开发所得，任何人不得以利益为目的进行仿制。</font>
+
+		</div>
+	</div>
+	<!--底部版权区结束-->
+	<!--网站主体结束-->
+</body>
+</html>
